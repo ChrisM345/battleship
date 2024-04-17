@@ -10,5 +10,7 @@
     "sourceType": "module"
   },
   "ignorePatterns": ["webpack.config.js", "babel.config.js"],
-  "rules": {}
+  "rules": {
+    "no-constant-condition": ["error", { "checkLoops": false }]
+  }
 }
