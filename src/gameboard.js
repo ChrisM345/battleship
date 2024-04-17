@@ -1,21 +1,23 @@
+let grid;
+
 function createGameBoard() {
   const width = 10;
-  let grid = Array.from(Array(10), () => new Array(width).fill(0));
-  console.table(grid);
-  let test = [
-    [[0], [0], [0], [0], [0], [0], [0], [0], [0], [0]],
-    [[0], [0], [0], [0], [0], [0], [0], [0], [0], [0]],
-    [[0], [0], [0], [0], [0], [0], [0], [0], [0], [0]],
-    [[0], [0], [0], [0], [0], [0], [0], [0], [0], [0]],
-    [[0], [0], [0], [0], [0], [0], [0], [0], [0], [0]],
-    [[0], [0], [0], [0], [0], [0], [0], [0], [0], [0]],
-    [[0], [0], [0], [0], [0], [0], [0], [0], [0], [0]],
-    [[0], [0], [0], [0], [0], [0], [0], [0], [0], [0]],
-    [[0], [0], [0], [0], [0], [0], [0], [0], [0], [0]],
-    [[0], [0], [0], [0], [0], [0], [0], [0], [0], [0]],
-  ];
-  console.table(test);
+  grid = Array.from(Array(width), () => new Array(width).fill(0));
   return grid;
 }
 
-export { createGameBoard };
+function getGrid() {
+  return grid;
+}
+
+function setGrid(coordinates) {
+  console.log("do something!");
+  coordinates.forEach((element) => {
+    console.log(element);
+    const x = element[0];
+    const y = element[1];
+    grid[x][y] = 1;
+  });
+}
+
+export { createGameBoard, getGrid, setGrid };
