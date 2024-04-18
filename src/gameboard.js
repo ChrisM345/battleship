@@ -1,23 +1,40 @@
 let grid;
 
-function createGameBoard() {
+class Gameboard {
+  constructor(name, grid) {
+    this.name = name;
+    this.grid = grid;
+  }
+
+  getGrid() {
+    return this.grid;
+  }
+
+  setGrid(coordinates) {
+    console.log("do something!");
+    coordinates.forEach((element) => {
+      const x = element[0];
+      const y = element[1];
+      this.grid[x][y] = 1;
+    });
+  }
+}
+function createGameboard(player) {
   const width = 10;
   grid = Array.from(Array(width), () => new Array(width).fill(0));
-  return grid;
+  return new Gameboard(player, grid);
 }
 
-function getGrid() {
-  return grid;
-}
+// function getGrid() {
+//   return grid;
+// }
 
-function setGrid(coordinates) {
-  console.log("do something!");
-  coordinates.forEach((element) => {
-    console.log(element);
-    const x = element[0];
-    const y = element[1];
-    grid[x][y] = 1;
-  });
-}
+// function setGrid(coordinates) {
+//   coordinates.forEach((element) => {
+//     const x = element[0];
+//     const y = element[1];
+//     grid[x][y] = 1;
+//   });
+// }
 
-export { createGameBoard, getGrid, setGrid };
+export { createGameboard };
