@@ -1,3 +1,7 @@
+import { displayChat } from "./interface";
+import { getCurrentPlayer, updatePlayerIndex } from ".";
+import { getComputerAvailableMoves, computerMove } from "./computerlogic";
+
 let grid;
 
 class Gameboard {
@@ -11,7 +15,6 @@ class Gameboard {
   }
 
   setGrid(coordinates, name) {
-    console.log("do something!");
     coordinates.forEach((element) => {
       const x = element[0];
       const y = element[1];
@@ -21,13 +24,25 @@ class Gameboard {
 
   receiveAttack(coordinates) {
     const [x, y] = coordinates.split("-");
+    console.log(this);
     if (this.grid[x][y] != 0) {
       console.log("hit!");
-      const hit = document.getElementById(`${coordinates}`);
+      const hit = document.getElementById(`${this.name}-${coordinates}`);
       hit.classList.add("hit");
+      displayChat("hit");
+      if (getCurrentPlayer().name == "computer") {
+        computerMove();
+      }
     } else {
-      const miss = document.getElementById(`${coordinates}`);
+      const miss = document.getElementById(`${this.name}-${coordinates}`);
       miss.classList.add("miss");
+      displayChat("missed");
+      updatePlayerIndex();
+      if (getCurrentPlayer().name == "computer") {
+        console.log("computers turn");
+        console.log(getComputerAvailableMoves().length);
+        computerMove();
+      }
     }
   }
 }
@@ -36,17 +51,5 @@ function createGameboard(player) {
   grid = Array.from(Array(width), () => new Array(width).fill(0));
   return new Gameboard(player, grid);
 }
-
-// function getGrid() {
-//   return grid;
-// }
-
-// function setGrid(coordinates) {
-//   coordinates.forEach((element) => {
-//     const x = element[0];
-//     const y = element[1];
-//     grid[x][y] = 1;
-//   });
-// }
 
 export { createGameboard };
