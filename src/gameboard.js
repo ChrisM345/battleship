@@ -10,20 +10,24 @@ class Gameboard {
     return this.grid;
   }
 
-  setGrid(coordinates) {
+  setGrid(coordinates, name) {
     console.log("do something!");
     coordinates.forEach((element) => {
       const x = element[0];
       const y = element[1];
-      this.grid[x][y] = 1;
+      this.grid[x][y] = name;
     });
   }
 
-  receiveAttack(x, y) {
-    if (this.grid[x][y] == 1) {
+  receiveAttack(coordinates) {
+    const [x, y] = coordinates.split("-");
+    if (this.grid[x][y] != 0) {
       console.log("hit!");
+      const hit = document.getElementById(`${coordinates}`);
+      hit.classList.add("hit");
     } else {
-      console.log("miss");
+      const miss = document.getElementById(`${coordinates}`);
+      miss.classList.add("miss");
     }
   }
 }

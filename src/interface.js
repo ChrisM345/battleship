@@ -7,7 +7,7 @@ function displayGameboards(player) {
         if (element == 0) {
           box.classList.add("player", "box", "zero");
         }
-        if (element == 1) {
+        if (element != 0) {
           box.classList.add("player", "box", "ship");
         }
         playerGameboard.append(box);
@@ -21,13 +21,13 @@ function displayGameboards(player) {
         if (element == 0) {
           box.classList.add("computer", "box", "zero");
         }
-        if (element == 1) {
+        if (element != 0) {
           box.classList.add("computer", "box", "ship");
         }
         box.id = `${coordX}-${coordY}`;
         box.addEventListener("click", (e) => {
-          const [x, y] = e.target.id.split("-");
-          player.gameboard.receiveAttack(x, y);
+          const coordinates = e.target.id;
+          player.gameboard.receiveAttack(coordinates);
         });
         computerGameboard.append(box);
       });
