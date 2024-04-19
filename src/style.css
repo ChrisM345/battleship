@@ -26,7 +26,7 @@ html {
   border-bottom: black solid;
 }
 
-.player + .ship {
+.player.box.ship {
   background-color: green;
 }
 
