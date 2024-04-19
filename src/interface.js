@@ -1,4 +1,4 @@
-import { getCurrentPlayer } from ".";
+import { getCurrentPlayer, getEnemy, updatePlayerIndex } from ".";
 import { setComputerAvailableMoves } from "./computerlogic";
 
 function displayGameboards(player) {
@@ -30,26 +30,38 @@ function displayGameboards(player) {
         }
         box.id = `computer-${coordX}-${coordY}`;
         setComputerAvailableMoves(coordX, coordY);
-        box.addEventListener(
-          "click",
-          (e) => {
-            const coordinates = e.target.id.substring(e.target.id.indexOf("-") + 1);
-            console.log(coordinates);
-            player.gameboard.receiveAttack(coordinates);
-          },
-          { once: true }
-        );
+        box.addEventListener("click", sendAttack, { once: true });
         computerGameboard.append(box);
       });
     });
   }
 }
 
-function displayChat(status) {
+function displayChat(status, ship = "ship") {
   const player = getCurrentPlayer();
   const timestamp = new Date().toLocaleTimeString();
   const chatlog = document.querySelector(".chat-log-message");
-  chatlog.innerText = `${timestamp}: ${player.name} ${status} enemy ship!\n` + chatlog.innerText;
+  chatlog.innerText = `${timestamp}: ${player.name} ${status} enemy ${ship}!\n` + chatlog.innerText;
 }
 
-export { displayGameboards, displayChat };
+function sendAttack(e) {
+  const coordinates = e.target.id.substring(e.target.id.indexOf("-") + 1);
+  getEnemy().gameboard.receiveAttack(coordinates);
+}
+
+function gameEnd() {
+  console.log(`${getCurrentPlayer().name} won the game!`);
+  if (getCurrentPlayer().name == "computer") {
+    updatePlayerIndex();
+  }
+  removeEvents();
+}
+
+function removeEvents() {
+  const computerGameboard = document.querySelector(".computer-gameboard");
+  for (const child of computerGameboard.children) {
+    child.removeEventListener("click", sendAttack);
+  }
+}
+
+export { displayGameboards, displayChat, gameEnd };
