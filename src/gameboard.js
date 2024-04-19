@@ -1,6 +1,6 @@
 import { displayChat } from "./interface";
-import { getCurrentPlayer, updatePlayerIndex } from ".";
-import { getComputerAvailableMoves, computerMove } from "./computerlogic";
+import { getCurrentPlayer, updatePlayerIndex, getEnemy } from ".";
+import { computerMove } from "./computerlogic";
 
 let grid;
 
@@ -24,12 +24,14 @@ class Gameboard {
 
   receiveAttack(coordinates) {
     const [x, y] = coordinates.split("-");
-    console.log(this);
     if (this.grid[x][y] != 0) {
-      console.log("hit!");
       const hit = document.getElementById(`${this.name}-${coordinates}`);
       hit.classList.add("hit");
-      displayChat("hit");
+      displayChat("hit", this.grid[x][y]);
+
+      const shipIndex = getEnemy().ships.findIndex((name) => name.name === this.grid[x][y]);
+      getEnemy().ships[shipIndex].removeHitLocation([+x, +y]);
+
       if (getCurrentPlayer().name == "computer") {
         computerMove();
       }
@@ -39,8 +41,6 @@ class Gameboard {
       displayChat("missed");
       updatePlayerIndex();
       if (getCurrentPlayer().name == "computer") {
-        console.log("computers turn");
-        console.log(getComputerAvailableMoves().length);
         computerMove();
       }
     }
