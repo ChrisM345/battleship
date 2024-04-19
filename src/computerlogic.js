@@ -12,11 +12,9 @@ function setComputerAvailableMoves(x, y) {
 
 function computerMove() {
   const move = Math.floor(Math.random() * computerAvailableMoves.length);
-  console.log(computerAvailableMoves[move]);
   const coordinates = computerAvailableMoves[move];
-  console.log(getPlayer());
-  getPlayer().gameboard.receiveAttack(`${coordinates[0]}-${coordinates[1]}`);
   computerAvailableMoves.splice(move, 1);
+  getPlayer().gameboard.receiveAttack(`${coordinates[0]}-${coordinates[1]}`);
 }
 
 export { setComputerAvailableMoves, getComputerAvailableMoves, computerMove };
