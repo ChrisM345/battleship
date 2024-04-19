@@ -38,7 +38,7 @@ function setShips(gameboard) {
   return ships;
 }
 
-function placeShip(length, gameboard) {
+function placeShip(name, length, gameboard) {
   const location = [];
   //Directions - 0 is Right, 1 is Down, 2 is Left, 3 is Up
   const directions = { 0: [1, 0], 1: [0, 1], 2: [-1, 0], 3: [0, -1] };
@@ -63,7 +63,7 @@ function placeShip(length, gameboard) {
         }
       }
       if (location.length != 0) {
-        gameboard.setGrid(location);
+        gameboard.setGrid(location, name);
         return location;
       }
     }
@@ -71,7 +71,7 @@ function placeShip(length, gameboard) {
 }
 
 function createShips(name, length, gameboard) {
-  const location = placeShip(length, gameboard);
+  const location = placeShip(name, length, gameboard);
   const ship = new Ship(name, length, 0, location);
   return ship;
 }
