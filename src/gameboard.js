@@ -18,6 +18,14 @@ class Gameboard {
       this.grid[x][y] = 1;
     });
   }
+
+  receiveAttack(x, y) {
+    if (this.grid[x][y] == 1) {
+      console.log("hit!");
+    } else {
+      console.log("miss");
+    }
+  }
 }
 function createGameboard(player) {
   const width = 10;
