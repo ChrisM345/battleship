@@ -4,6 +4,7 @@ html {
 
 .container {
   display: flex;
+  justify-content: center;
   gap: 50px;
 }
 .player-gameboard {
@@ -25,11 +26,35 @@ html {
   border-bottom: black solid;
 }
 
-.ship {
-  background-color: purple;
+.player + .ship {
+  background-color: green;
 }
 
 .computer-gameboard {
   display: grid;
   grid-template-columns: repeat(10, 50px);
+}
+
+.hit,
+.player.box.ship.hit {
+  background-color: red;
+}
+
+.miss {
+  background-color: blue;
+}
+
+.chatlog-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.chatlog {
+  display: flex;
+  flex-grow: 0;
+  height: 200px;
+  min-width: 200px;
+  margin-top: 50px;
+  border: solid black;
+  overflow: hidden;
 }
