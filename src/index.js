@@ -23,18 +23,24 @@ displayGameboards(player);
 displayGameboards(computer);
 
 function startGame() {
-  let gameOver = false;
   players = [player, computer];
   console.log(players);
 }
 
 function updatePlayerIndex() {
   currPlayerIndex == 0 ? (currPlayerIndex = 1) : (currPlayerIndex = 0);
-  console.log(currPlayerIndex);
 }
 
 function getCurrentPlayer() {
   return players[currPlayerIndex];
+}
+
+function getEnemy() {
+  if (currPlayerIndex == 0) {
+    return players[1];
+  } else {
+    return players[0];
+  }
 }
 
 function getPlayer() {
@@ -43,4 +49,4 @@ function getPlayer() {
 
 startGame();
 
-export { updatePlayerIndex, getCurrentPlayer, getPlayer };
+export { updatePlayerIndex, getCurrentPlayer, getPlayer, getEnemy };
