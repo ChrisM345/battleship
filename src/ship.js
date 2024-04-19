@@ -1,3 +1,6 @@
+import { gameEnd } from "./interface";
+import { getEnemy } from ".";
+
 const allShips = [];
 const width = 10;
 
@@ -14,16 +17,31 @@ class Ship {
   }
 
   removeHitLocation(coordinates) {
-    location = this.getLocation();
-    this.location = location.splice(location.indexOf(coordinates), 1);
+    const shipLocation = this.getLocation();
+    let idx;
+    for (let i = 0; i < shipLocation.length; i++) {
+      if (shipLocation[i][0] == coordinates[0] && shipLocation[i][1] == coordinates[1]) {
+        idx = i;
+      }
+    }
+    shipLocation.splice(idx, 1);
+    this.hit();
+    this.isSunk();
   }
   hit() {
     this.hits += 1;
   }
 
+  setTotalShips() {
+    this.totalShips -= 1;
+  }
+
   isSunk() {
     if (this.hits == this.length) {
-      console.log("sunk!");
+      getEnemy().totalShips -= 1;
+      if (getEnemy().totalShips == 0) {
+        gameEnd();
+      }
     }
   }
 }
@@ -47,17 +65,13 @@ function placeShip(name, length, gameboard) {
     let x = Math.floor(Math.random() * width);
     let y = Math.floor(Math.random() * width);
     let direction = Math.floor(Math.random() * 4);
-    // console.log(grid[x][y]);
-    // console.log(`x is ${x}, y is ${y}, direction is ${direction}, length is ${length}`);
     if (grid[x][y] == 0) {
       location.push([x, y]);
       for (let i = 1; i <= length - 1; i++) {
         x += directions[direction][0];
         y += directions[direction][1];
         location.push([x, y]);
-        // console.log(`x is ${x}, y is ${y}`);
         if (x < 0 || y < 0 || x > 9 || y > 9 || grid[x][y] != 0) {
-          // console.log("broke");
           location.length = 0;
           break;
         }
