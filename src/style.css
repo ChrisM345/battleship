@@ -1,1 +1,35 @@
+html {
+  background-color: gray;
+}
 
+.container {
+  display: flex;
+  gap: 50px;
+}
+.player-gameboard {
+  display: grid;
+  grid-template-columns: repeat(10, 50px);
+}
+.box {
+  border-top: black solid;
+  border-left: black solid;
+  width: 50px;
+  height: 50px;
+}
+
+.box:nth-child(10n) {
+  border-right: black solid;
+}
+
+.box:nth-child(n + 91) {
+  border-bottom: black solid;
+}
+
+.ship {
+  background-color: purple;
+}
+
+.computer-gameboard {
+  display: grid;
+  grid-template-columns: repeat(10, 50px);
+}
