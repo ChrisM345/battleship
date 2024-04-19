@@ -4,9 +4,8 @@ import { createPlayer } from "./player";
 import { displayGameboards } from "./interface";
 import "./style.css";
 
-createGameboard();
-// console.log(getShips());
-// console.table(getGrid());
+let currPlayerIndex = 0;
+let players = [];
 
 const playerGameboard = createGameboard("player");
 console.log(playerGameboard);
@@ -20,7 +19,28 @@ console.log(computerShips);
 
 const player = createPlayer("player", playerGameboard, playerShips);
 const computer = createPlayer("computer", computerGameboard, computerShips);
-console.log(player);
-console.log(computer);
 displayGameboards(player);
 displayGameboards(computer);
+
+function startGame() {
+  let gameOver = false;
+  players = [player, computer];
+  console.log(players);
+}
+
+function updatePlayerIndex() {
+  currPlayerIndex == 0 ? (currPlayerIndex = 1) : (currPlayerIndex = 0);
+  console.log(currPlayerIndex);
+}
+
+function getCurrentPlayer() {
+  return players[currPlayerIndex];
+}
+
+function getPlayer() {
+  return players[0];
+}
+
+startGame();
+
+export { updatePlayerIndex, getCurrentPlayer, getPlayer };
