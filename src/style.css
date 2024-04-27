@@ -2,11 +2,27 @@ html {
   background-color: gray;
 }
 
+h1 {
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 1000px;
+  border: black solid;
+  gap: 500px;
+}
 .container {
   display: flex;
   justify-content: center;
   gap: 50px;
 }
+
 .player-gameboard {
   display: grid;
   grid-template-columns: repeat(10, 50px);
@@ -54,7 +70,7 @@ html {
   flex-grow: 0;
   height: 200px;
   min-width: 200px;
-  margin-top: 50px;
+  margin-top: 0px;
   border: solid black;
   overflow: hidden;
 }
