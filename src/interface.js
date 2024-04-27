@@ -1,4 +1,4 @@
-import { getCurrentPlayer, getEnemy, updatePlayerIndex } from ".";
+import { getCurrentPlayer, getEnemy, setIndexToPlayer, updateStatusWin, restartGame } from ".";
 import { setComputerAvailableMoves } from "./computerlogic";
 
 function displayGameboards(player) {
@@ -30,13 +30,19 @@ function displayGameboards(player) {
         }
         box.id = `computer-${coordX}-${coordY}`;
         setComputerAvailableMoves(coordX, coordY);
-        box.addEventListener("click", sendAttack, { once: true });
+        box.addEventListener("click", playerAttack);
         computerGameboard.append(box);
       });
     });
   }
 }
 
+function playerAttack(e) {
+  if (getCurrentPlayer().name == "player") {
+    sendAttack(e);
+    e.target.removeEventListener("click", playerAttack);
+  }
+}
 function displayChat(status, ship = "ship") {
   const player = getCurrentPlayer();
   const timestamp = new Date().toLocaleTimeString();
@@ -52,17 +58,28 @@ function sendAttack(e) {
 }
 
 function gameEnd() {
-  console.log(`${getCurrentPlayer().name} won the game!`);
+  updateStatusWin();
   if (getCurrentPlayer().name == "computer") {
-    updatePlayerIndex();
+    setIndexToPlayer();
   }
   removeEvents();
+
+  const status = document.querySelector(".status");
+  const btn = document.createElement("button");
+  const para = document.createElement("p");
+  btn.className = "button";
+  btn.innerText = "Restart Game";
+  btn.addEventListener("click", () => {
+    restartGame();
+  });
+  para.append(btn);
+  status.append(para);
 }
 
 function removeEvents() {
   const computerGameboard = document.querySelector(".computer-gameboard");
   for (const child of computerGameboard.children) {
-    child.removeEventListener("click", sendAttack);
+    child.removeEventListener("click", playerAttack);
   }
 }
 

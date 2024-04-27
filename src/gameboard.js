@@ -23,8 +23,6 @@ class Gameboard {
   }
 
   receiveAttack(x, y) {
-    console.log(x);
-    console.log(y);
     if (this.grid[x][y] != 0) {
       const hit = document.getElementById(`${this.name}-${x}-${y}`);
       hit.classList.add("hit");
@@ -34,7 +32,7 @@ class Gameboard {
       getEnemy().ships[shipIndex].removeHitLocation([+x, +y]);
 
       if (getCurrentPlayer().name == "computer") {
-        setTimeout(computerMove, 1500);
+        setTimeout(computerMove, 1000); //Add delay for computer's turn
       }
     } else {
       const miss = document.getElementById(`${this.name}-${x}-${y}`);
@@ -42,7 +40,7 @@ class Gameboard {
       displayChat("missed");
       updatePlayerIndex();
       if (getCurrentPlayer().name == "computer") {
-        setTimeout(computerMove, 1500);
+        setTimeout(computerMove, 1000); //Add delay for computer's turn
       }
     }
   }

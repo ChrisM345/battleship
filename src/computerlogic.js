@@ -6,6 +6,10 @@ function getComputerAvailableMoves() {
   return computerAvailableMoves;
 }
 
+function resetComputerMoves() {
+  computerAvailableMoves.length = 0;
+}
+
 function setComputerAvailableMoves(x, y) {
   computerAvailableMoves.push([x, y]); //Simple logic for computer. Array of all 100 available moves
 }
@@ -17,4 +21,4 @@ function computerMove() {
   getPlayer().gameboard.receiveAttack(coordinates[0], coordinates[1]);
 }
 
-export { setComputerAvailableMoves, getComputerAvailableMoves, computerMove };
+export { setComputerAvailableMoves, getComputerAvailableMoves, computerMove, resetComputerMoves };
