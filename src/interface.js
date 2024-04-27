@@ -1,6 +1,8 @@
 import { getCurrentPlayer, getEnemy, setIndexToPlayer, updateStatusWin, restartGame } from ".";
 import { setComputerAvailableMoves } from "./computerlogic";
 
+//Create player and computer grids
+//Add Event Listeners to the  computer grid for the player to click on
 function displayGameboards(player) {
   if (player.name != "computer") {
     const playerGameboard = document.querySelector(".player-gameboard");
@@ -38,11 +40,13 @@ function displayGameboards(player) {
 }
 
 function playerAttack(e) {
+  //Prevents player from attacking after a delay to computer's turn was added
   if (getCurrentPlayer().name == "player") {
     sendAttack(e);
     e.target.removeEventListener("click", playerAttack);
   }
 }
+
 function displayChat(status, ship = "ship") {
   const player = getCurrentPlayer();
   const timestamp = new Date().toLocaleTimeString();
@@ -53,16 +57,16 @@ function displayChat(status, ship = "ship") {
 function sendAttack(e) {
   const coordinates = e.target.id.substring(e.target.id.indexOf("-") + 1);
   const x = coordinates[0];
-  const y = coordinates[2]; //Skip
+  const y = coordinates[2]; //Skip '-'
   getEnemy().gameboard.receiveAttack(x, y);
 }
 
 function gameEnd() {
   updateStatusWin();
   if (getCurrentPlayer().name == "computer") {
-    setIndexToPlayer();
+    setIndexToPlayer(); //Prevent computer logic from continuing to run
   }
-  removeEvents();
+  removeEvents(); //Remove event listeners from computer's grid
 
   const status = document.querySelector(".status");
   const btn = document.createElement("button");

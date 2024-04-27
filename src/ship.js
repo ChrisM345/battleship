@@ -21,6 +21,7 @@ class Ship {
     let idx;
     for (let i = 0; i < shipLocation.length; i++) {
       if (shipLocation[i][0] == coordinates[0] && shipLocation[i][1] == coordinates[1]) {
+        //Find the correct index of the hit location of the ship
         idx = i;
       }
     }
@@ -36,6 +37,7 @@ class Ship {
     if (this.hits == this.length) {
       getEnemy().totalShips -= 1;
       if (getEnemy().totalShips == 0) {
+        //All ships are sunk. End the game
         gameEnd();
       }
     }
@@ -68,11 +70,13 @@ function placeShip(name, length, gameboard) {
         y += directions[direction][1];
         location.push([x, y]);
         if (x < 0 || y < 0 || x > 9 || y > 9 || grid[x][y] != 0) {
+          //Ship is out of bounds or it ran into another ship. Set location.length to 0 and break
           location.length = 0;
           break;
         }
       }
       if (location.length != 0) {
+        //The ship fits in the grid and can be added
         gameboard.setGrid(location, name);
         return location;
       }
