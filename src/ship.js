@@ -32,10 +32,6 @@ class Ship {
     this.hits += 1;
   }
 
-  setTotalShips() {
-    this.totalShips -= 1;
-  }
-
   isSunk() {
     if (this.hits == this.length) {
       getEnemy().totalShips -= 1;

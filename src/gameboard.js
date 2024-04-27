@@ -22,10 +22,11 @@ class Gameboard {
     });
   }
 
-  receiveAttack(coordinates) {
-    const [x, y] = coordinates.split("-");
+  receiveAttack(x, y) {
+    console.log(x);
+    console.log(y);
     if (this.grid[x][y] != 0) {
-      const hit = document.getElementById(`${this.name}-${coordinates}`);
+      const hit = document.getElementById(`${this.name}-${x}-${y}`);
       hit.classList.add("hit");
       displayChat("hit", this.grid[x][y]);
 
@@ -33,15 +34,15 @@ class Gameboard {
       getEnemy().ships[shipIndex].removeHitLocation([+x, +y]);
 
       if (getCurrentPlayer().name == "computer") {
-        computerMove();
+        setTimeout(computerMove, 1500);
       }
     } else {
-      const miss = document.getElementById(`${this.name}-${coordinates}`);
+      const miss = document.getElementById(`${this.name}-${x}-${y}`);
       miss.classList.add("miss");
       displayChat("missed");
       updatePlayerIndex();
       if (getCurrentPlayer().name == "computer") {
-        computerMove();
+        setTimeout(computerMove, 1500);
       }
     }
   }

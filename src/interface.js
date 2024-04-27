@@ -46,7 +46,9 @@ function displayChat(status, ship = "ship") {
 
 function sendAttack(e) {
   const coordinates = e.target.id.substring(e.target.id.indexOf("-") + 1);
-  getEnemy().gameboard.receiveAttack(coordinates);
+  const x = coordinates[0];
+  const y = coordinates[2]; //Skip
+  getEnemy().gameboard.receiveAttack(x, y);
 }
 
 function gameEnd() {
